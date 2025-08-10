@@ -1,0 +1,143 @@
+/* style.css - small, performance-friendly, accessible */
+
+/* --- Variables (cheap to compute) --- */
+:root{
+  --bg: #0f1724;
+  --card: #0b1220;
+  --accent: #06b6d4;
+  --muted: #94a3b8;
+  --radius: 12px;
+  --container-w: 1100px;
+  --gap: 1rem;
+  --fw-regular: 400;
+  --fw-bold: 700;
+}
+
+/* Reduce repaints where appropriate */
+*,
+*::before,
+*::after{ box-sizing: border-box; }
+
+/* Basic performance-friendly font stack (use system fonts) */
+html{
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(180deg,var(--bg),#08101b);
+  color: #e6eef6;
+  line-height: 1.45;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Layout container with max-width for readable lines */
+.container{
+  max-width: var(--container-w);
+  margin: 2rem auto;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--gap);
+  align-items: start;
+}
+
+/* Card styles */
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.55);
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* Header */
+.header{
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: .5rem;
+}
+.brand{
+  display: flex;
+  gap:.75rem;
+  align-items:center;
+}
+.logo{
+  width:42px;
+  height:42px;
+  border-radius:10px;
+  background: linear-gradient(45deg,var(--accent),#7c3aed);
+  display:grid;
+  place-items:center;
+  font-weight:var(--fw-bold);
+  color:#042027;
+  font-size:1.05rem;
+}
+
+/* Headings and text */
+h1{ font-size:1.25rem; margin:0; }
+h2{ font-size:1rem; margin:0 0 .5rem 0; color:var(--muted); font-weight:var(--fw-bold); }
+
+/* Small utility */
+.muted{ color:var(--muted); font-size:.95rem; }
+
+/* Simple responsive table */
+.table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:.95rem;
+}
+.table th,
+.table td{
+  text-align:left;
+  padding:.6rem .5rem;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+}
+.table th{ font-weight:600; color:var(--muted); }
+
+/* Button (GPU-accelerated transform) */
+.btn{
+  display:inline-block;
+  padding:.6rem .9rem;
+  border-radius:10px;
+  background:var(--accent);
+  color:#022328;
+  font-weight:600;
+  text-decoration:none;
+  transform: translateZ(0); /* promote to composite layer */
+  will-change: transform, opacity;
+}
+.btn:active{ transform: translateY(1px) translateZ(0); }
+
+/* Form inputs (lightweight) */
+.input{
+  width:100%;
+  padding:.6rem;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.03);
+  background:transparent;
+  color:inherit;
+  outline: none;
+}
+
+/* Accessibility: visible focus */
+:focus{ outline: 3px solid rgba(6,182,212,0.15); outline-offset: 2px; }
+
+/* Media queries: single-column on small screens */
+@media (max-width: 900px){
+  .container{ grid-template-columns: 1fr; padding: .75rem; }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce){
+  *{ transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
+
+/* Print tweaks - hide decorative elements */
+@media print{
+  body{ background: #fff; color:#000; }
+  .logo, .btn { display:none; }
+  .container{ max-width:100%; grid-template-columns:1fr; }
+}

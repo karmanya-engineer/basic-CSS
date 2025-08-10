@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Performance-first UI Demo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container" role="main">
+    <section class="card">
+      <div class="header">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">PF</div>
+          <div>
+            <h1>Performance-first UI</h1>
+            <div class="muted">Small, greedy on UX — light on resources</div>
+          </div>
+        </div>
+        <a class="btn" href="#stats">Quick stats</a>
+      </div>
+      <h2>Why this CSS helps performance</h2>
+      <ul class="muted">
+        <li>System font stack avoids extra font downloads.</li>
+        <li>Small stylesheet size, variables, and simple selectors reduce painting cost.</li>
+        <li>Respect for <code>prefers-reduced-motion</code> improves perceived performance.</li>
+        <li>Layer promotion for interactive elements reduces jank.</li>
+      </ul>
+      <h2 id="stats">Live-ish Stats</h2>
+      <table class="table" aria-describedby="stats">
+        <thead>
+          <tr><th>Metric</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>CSS size</td><td>~3 KB (minified)</td></tr>
+          <tr><td>First paint</td><td>fast when critical CSS is inlined</td></tr>
+        </tbody>
+      </table>
+      <form style="margin-top:1rem;" onsubmit="event.preventDefault(); alert('Demo submit');">
+        <label class="muted" for="name">Your name</label>
+        <input id="name" class="input" placeholder="Type here..." />
+        <div style="margin-top:.6rem;">
+          <button class="btn" type="submit">Send</button>
+        </div>
+      </form>
+    </section>
+    <aside class="card" aria-label="Secondary content">
+      <h2>Tips</h2>
+      <ul class="muted">
+        <li>Inline critical CSS in the HTML head for the fastest first paint.</li>
+        <li>Defer non-critical CSS with <code>rel="preload"</code> -> <code>rel="stylesheet"</code>.</li>
+        <li>Use system fonts or <code>font-display: swap</code> to avoid FOIT.</li>
+        <li>Limit heavy shadows and large images above the fold.</li>
+      </ul>
+    </aside>
+  </main>
+</body>
+</html>
